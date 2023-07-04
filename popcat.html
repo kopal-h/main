@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicker</title>
+  <script>
+    function handleClick() {
+      let currentValue = localStorage.getItem('clickCount');
+      
+      if (currentValue) {
+        currentValue = parseInt(currentValue);
+        currentValue += 1;
+      } else {
+        currentValue = 1;
+      }
+
+      document.getElementById('clickCount').textContent = currentValue;
+
+      localStorage.setItem('clickCount', currentValue);
+    }
+
+    function loadClickCount() {
+      let currentValue = localStorage.getItem('clickCount');
+      if (currentValue) {
+        document.getElementById('clickCount').textContent = currentValue;
+      }
+    }
+
+    function protectLocalStorage() {
+      window.addEventListener('storage', function (event) {
+        if (event.key === 'clickCount') {
+          loadClickCount();
+        }
+      });
+    }
+  </script>
+  <style>
+    #crd {
+      font-size: 3px;
+    }
+</head>
+<body onload="loadClickCount(); protectLocalStorage();">
+  <h1>Clicker</h1>
+  <img src="img/popcat.png" onclick="handleClick();" alt="Popcat">
+  <p>Click count: <span id="clickCount">0</span></p>
+  <div id="crd">https://kopal-h.github.io/main/order</div>
+</body>
+</html>
