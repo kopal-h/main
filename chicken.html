@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chicken Encryption</title>
+    <script type="text/javascript">
+        function encrypt() {
+            var inputText = document.getElementById("inputText").value.toLowerCase();
+            var encryptedText = "";
+
+            for (var i = 0; i < inputText.length; i++) {
+                var charCode = inputText.charCodeAt(i);
+                if (charCode >= 97 && charCode <= 122) {
+                    var chickenCount = charCode - 96;
+                    encryptedText += "chicken ".repeat(chickenCount) + "chicken, ";
+                } else {
+                    encryptedText += inputText[i];
+                }
+            }
+
+            document.getElementById("encryptedText").innerHTML = encryptedText;
+            document.getElementById("decryptedText").innerHTML = "";
+            document.getElementById("decryptionInput").value = "";
+        }
+
+        function decrypt() {
+            var encryptedText = document.getElementById("encryptedText").innerHTML;
+            var decryptedText = "";
+
+            var chickenWords = encryptedText.split("chicken, ");
+            for (var i = 0; i < chickenWords.length; i++) {
+                var chickenCount = chickenWords[i].split("chicken ").length - 1;
+                if (chickenCount > 0) {
+                    var charCode = chickenCount + 96;
+                    decryptedText += String.fromCharCode(charCode);
+                } else {
+                    decryptedText += chickenWords[i];
+                }
+            }
+
+            document.getElementById("decryptedText").innerHTML = decryptedText;
+        }
+    </script>
+</head>
+<body>
+    <h2>Chicken Encryption</h2>
+    <input type="text" id="inputText" placeholder="Enter text to encrypt">
+    <button onclick="encrypt()">Encrypt</button>
+    <p id="encryptedText"></p>
+
+    <h2>Chicken Decryption</h2>
+    <input type="text" id="decryptionInput" placeholder="Enter text to decrypt">
+    <button onclick="decrypt()">Decrypt</button>
+    <p id="decryptedText"></p>
+</body>
+</html>
